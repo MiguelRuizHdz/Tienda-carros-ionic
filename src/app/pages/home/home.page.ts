@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ProductoService } from 'src/app/services/producto.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,12 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(public productoService: ProductoService) {}
 
+  siguientePagina( event ) {
+    this.productoService.cargarTodos()
+        .then( () => {
+          event.target.complete();
+        });
+  }
 }
