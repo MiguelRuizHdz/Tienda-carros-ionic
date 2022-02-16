@@ -1,9 +1,35 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>producto</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{ producto.producto }}</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="producto">
+
+    <div class="ion-text-center">
+        <img [src]="producto.codigo | imagen" alt="producto.producto">
+    </div>
+
+    <div class="ion-padding">
+        <h5>{{ producto.producto }}</h5>
+        <p>
+            <strong>Precio:</strong> {{ producto.precio_compra | currency:'USD':'symbol-narrow'}}
+        </p>
+
+        <p>
+            {{ producto.descripcion }}
+            <br>
+            <strong>{{ producto.proveedor }}</strong>
+        </p>
+
+        <ion-button (click)="agregarAlCarrito()" expand="block">
+            <ion-icon slot="end" name="cart"></ion-icon>
+            Agregar al carrito
+        </ion-button>
+
+    </div>
 
 </ion-content>
