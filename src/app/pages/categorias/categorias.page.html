@@ -1,9 +1,16 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>categorias</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>Categorías</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+    <ion-list>
+        <ion-item button [routerLink]="['por-categorias', categoria ]" *ngFor="let categoria of productoService.categorias" detail>
+            <ion-label>{{ categoria.linea }}</ion-label>
+            <ion-icon slot="start" [name]="categoria.icono"></ion-icon>
+        </ion-item>
+    </ion-list>
 
 </ion-content>

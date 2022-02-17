@@ -11,9 +11,11 @@ export class ProductoService {
 
   pagina = 0;
   productos: any[] = [];
+  categorias: any[] = [];
 
   constructor(private http: HttpClient) {
     this.cargarTodos();
+    this.cargarCategorias();
   }
 
   cargarTodos() {
@@ -34,6 +36,24 @@ export class ProductoService {
                           });
     });
 
+  }
+
+  cargarCategorias(){
+    return new Promise( (resolve, reject ) =>{
+
+      this.http.get( `${ URL }/lineas` )
+                          .subscribe( (data: any) => {
+                            console.log(data);
+                            if( data.error ) {
+                              // Aquí hay un problema
+                              resolve(false);
+                            } else {
+                              this.categorias = data.lineas;
+                              console.log(this.categorias);
+                            }
+                            resolve(true);
+                          });
+    });
   }
 
 
