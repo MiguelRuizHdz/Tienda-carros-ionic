@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CarritoService } from '../../services/carrito.service';
 
 export interface Producto {
   codigo?:        string;
@@ -21,7 +22,8 @@ export class ProductoPage implements OnInit {
 
   producto: Producto = {};
 
-  constructor(private route: ActivatedRoute ) { }
+  constructor(private route: ActivatedRoute,
+    public carritoService: CarritoService ) { }
 
   ngOnInit() {
     this.route.snapshot.paramMap.keys.forEach((key) => {
