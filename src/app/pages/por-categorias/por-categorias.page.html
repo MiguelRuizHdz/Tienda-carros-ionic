@@ -3,10 +3,27 @@
         <ion-buttons slot="start">
             <ion-back-button defaultHref="/tabs/categorias"></ion-back-button>
         </ion-buttons>
-        <ion-title>porCategorias</ion-title>
+        <ion-title>{{ categoria.linea }}</ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+
+    <ion-list>
+        <ion-item *ngFor="let item of productoService.porCategoria">
+            <ion-thumbnail slot="start">
+                <img [src]="item.codigo | imagen" alt="item.producto" />
+            </ion-thumbnail>
+
+            <ion-label>
+                <h2>{{ item.producto }}</h2>
+                <p>{{ item.proveedor }}</p>
+            </ion-label>
+
+            <ion-button [routerLink]="['producto', item ]" fill="clear">
+                Ver
+            </ion-button>
+        </ion-item>
+    </ion-list>
 
 </ion-content>

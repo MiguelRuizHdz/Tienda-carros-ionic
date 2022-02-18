@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ProductoService } from '../../services/producto.service';
 
 @Component({
   selector: 'app-por-categorias',
@@ -8,15 +9,18 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PorCategoriasPage implements OnInit {
 
-  categoria = {};
+  categoria: any = {};
 
-  constructor( private route: ActivatedRoute ) { }
+  constructor( private route: ActivatedRoute,
+               public productoService: ProductoService ) {}
 
   ngOnInit() {
     this.route.snapshot.paramMap.keys.forEach((key) => {
       this.categoria[key] = this.route.snapshot.paramMap.get(key);
     });
     console.log(this.categoria);
+    this.productoService.cargarPorCategoria( this.categoria.id );
+
   }
 
 }

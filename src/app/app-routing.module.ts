@@ -22,10 +22,6 @@ const routes: Routes = [
   {
     path: 'ordenes-detalle',
     loadChildren: () => import('./pages/ordenes-detalle/ordenes-detalle.module').then( m => m.OrdenesDetallePageModule)
-  },
-  {
-    path: 'producto',
-    loadChildren: () => import('./pages/producto/producto.module').then( m => m.ProductoPageModule)
   }
 ];
 

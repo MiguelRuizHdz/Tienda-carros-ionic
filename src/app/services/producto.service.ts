@@ -12,10 +12,29 @@ export class ProductoService {
   pagina = 0;
   productos: any[] = [];
   categorias: any[] = [];
+  porCategoria: any[] = [];
+
 
   constructor(private http: HttpClient) {
     this.cargarTodos();
     this.cargarCategorias();
+  }
+
+  cargarPorCategoria( categoria:number ) {
+    return new Promise( (resolve, reject ) =>{
+
+      this.http.get( `${ URL }/productos/por_tipo/${ categoria }` )
+                          .subscribe( (data: any) => {
+                            console.log(data);
+                            if( data.error ) {
+                              // Aquí hay un problema
+                              resolve(false);
+                            } else {
+                              this.porCategoria = data.productos;
+                            }
+                            resolve(true);
+                          });
+      });
   }
 
   cargarTodos() {

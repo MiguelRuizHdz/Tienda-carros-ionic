@@ -6,7 +6,7 @@ import { CategoriasPage } from './categorias.page';
 const routes: Routes = [
   {
     path: '',
-    component: CategoriasPage,
+    component: CategoriasPage
   },
   {
     path: 'por-categorias',
