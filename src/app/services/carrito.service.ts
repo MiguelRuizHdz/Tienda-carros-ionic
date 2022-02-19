@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AlertController, Platform } from '@ionic/angular';
+import { AlertController, ModalController, Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
+import { UsuarioService } from './usuario.service';
+import { LoginPage } from '../pages/login/login.page';
+import { CarritoPage } from '../pages/carrito/carrito.page';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +13,9 @@ export class CarritoService {
   items: any[] = [];
 
   constructor(public alertController: AlertController,
-    private platform: Platform ,
+    private platform: Platform,
+    private usuarioService: UsuarioService,
+    public modalController: ModalController,
     private storage: Storage) {
       this.storage.create();
     this.cargarStorage();
@@ -57,6 +62,33 @@ export class CarritoService {
     });
 
   }
+
+  async verCarrito() {
+
+    let modal: any;
+    if( this.usuarioService.token ) {
+      // mostrar pagina del carrito
+      modal = await this.modalController.create({
+        component: CarritoPage,
+      });
+    } else {
+      // mostrar el login
+      modal = await this.modalController.create({
+        component: LoginPage,
+      });
+    }
+
+    modal.present();
+
+    modal.onWillDismiss( async ( abrirCarrito: boolean ) => {
+      if( abrirCarrito ) {
+        modal = await this.modalController.create({
+          component: CarritoPage,
+        });
+      }
+    });
+  }
+
 
   private guardarStorage() {
 

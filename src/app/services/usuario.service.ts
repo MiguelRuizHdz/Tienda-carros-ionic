@@ -5,5 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class UsuarioService {
 
+  token: string;
+  idUsuario: string;
+
   constructor() { }
+
+  
+
 }

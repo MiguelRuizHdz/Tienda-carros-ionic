@@ -6,7 +6,7 @@
         </ion-title>
 
         <ion-buttons slot="end">
-            <ion-button (click)="onClick()">
+            <ion-button (click)="carritoService.verCarrito()">
                 <ion-icon color="primary" slot="icon-only" name="cart"></ion-icon>
                 <ion-badge color="danger" *ngIf="carritoService.items.length > 0" class="carritoNumero">
                     {{ carritoService.items.length }}
