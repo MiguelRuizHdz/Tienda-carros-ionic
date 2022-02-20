@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPage implements OnInit {
 
-  constructor() { }
+  correo = '';
+  contrasena = '';
+
+  constructor(public modalController: ModalController,
+    private usuarioService: UsuarioService) { }
 
   ngOnInit() {
+  }
+
+  dismiss() {
+    this.modalController.dismiss({
+      dismissed: true
+    });
+  }
+
+  async ingresar() {
+    const valido = await this.usuarioService.ingresar( this.correo, this.contrasena );
+
+    console.log(valido);
   }
 
 }
