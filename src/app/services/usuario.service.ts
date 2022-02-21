@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { AlertController } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 
 const URL = environment.url;
 
@@ -14,7 +15,19 @@ export class UsuarioService {
   idUsuario: string;
 
   constructor(private http: HttpClient,
-    public alertController: AlertController) { }
+    private platform: Platform,
+    private storage: Storage,
+    public alertController: AlertController) {
+      this.cargarStorage();
+    }
+
+  activo(): boolean {
+    if(this.token ){
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   async ingresar( correo: string, contrasena: string ) {
 
@@ -37,11 +50,74 @@ export class UsuarioService {
                   } else {
                     this.token = dataResp.token;
                     this.idUsuario = dataResp.id_usuario;
+                    // Guardar Storage
+                    this.guardarStorage();
                     resolve(true);
                   }
                 });
     });
   }
 
+  cerrarSesion(){
+    this.token = null;
+    this.idUsuario = null;
+
+    // Guardar Storage
+    this.guardarStorage();
+  }
+
+  async cargarStorage(){
+
+    return new Promise( async (resolve, reject ) => {
+
+      if( this.platform.is('capacitor') ) {
+        // dispositivo
+        await this.storage.get('token').then( token => {
+          if (token) {
+            this.token = token;
+          }
+          resolve(true);
+        });
+        await this.storage.get('idUsuario').then( idUsuario => {
+          if (idUsuario) {
+            this.idUsuario = idUsuario;
+          }
+          resolve(true);
+        });
+      } else {
+        // computadora
+        if ( localStorage.getItem('token') ) {
+          // Existe token en el localStorage
+          this.token = localStorage.getItem('token');
+        }
+        if ( localStorage.getItem('idUsuario') ) {
+          // Existe idUsuario en el localStorage
+          this.idUsuario = localStorage.getItem('idUsuario');
+        }
+        resolve(true);
+      }
+    });
+
+  }
+
+  private guardarStorage() {
+
+    if( this.platform.is('capacitor')){
+      // dispositivo
+      this.storage.set('token', this.token);
+      this.storage.set('idUsuario', this.idUsuario);
+    } else {
+      // computadora
+      if( this.token ){
+        localStorage.setItem('token', this.token );
+        localStorage.setItem('idUsuario', this.idUsuario );
+      } else {
+        // Borrandolos en el storage
+        localStorage.removeItem('token');
+        localStorage.removeItem('idUsuario');
+      }
+    }
+
+  }
 
 }

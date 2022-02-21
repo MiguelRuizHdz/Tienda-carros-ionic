@@ -85,6 +85,7 @@ export class CarritoService {
         modal = await this.modalController.create({
           component: CarritoPage,
         });
+        modal.present();
       }
     });
   }

@@ -1,6 +1,12 @@
 <ion-header>
     <ion-toolbar>
 
+        <ion-buttons *ngIf="usuarioService.activo()" slot="start">
+            <ion-button (click)="usuarioService.cerrarSesion()">
+                Cerrar
+            </ion-button>
+        </ion-buttons>
+
         <ion-title>
             Mi Tienda
         </ion-title>

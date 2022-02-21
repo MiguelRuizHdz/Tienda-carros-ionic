@@ -25,6 +25,9 @@ export class LoginPage implements OnInit {
   }
 
   async ingresar() {
+    if( this.usuarioService.activo() ){
+      this.dismiss();
+    }
     const valido = await this.usuarioService.ingresar( this.correo, this.contrasena );
 
     console.log(valido);
