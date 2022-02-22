@@ -4,6 +4,10 @@ import { Storage } from '@ionic/storage-angular';
 import { UsuarioService } from './usuario.service';
 import { LoginPage } from '../pages/login/login.page';
 import { CarritoPage } from '../pages/carrito/carrito.page';
+import { HttpParams, HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment.prod';
+
+const URL = environment.url;
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +19,7 @@ export class CarritoService {
 
   constructor(public alertController: AlertController,
     private platform: Platform,
+    private http: HttpClient,
     private usuarioService: UsuarioService,
     public modalController: ModalController,
     private storage: Storage) {
@@ -24,7 +29,7 @@ export class CarritoService {
     }
 
   async agregarCarrito( itemParametro: any ) {
-    for( let item of this.items ) {
+    for( const item of this.items ) {
       if( item.codigo === itemParametro.codigo ) {
 
         await (await this.alertController.create({
@@ -44,7 +49,7 @@ export class CarritoService {
 
   actualizarTotal() {
     this.totalCarrito = 0;
-    for( let item of this.items ) {
+    for( const item of this.items ) {
       this.totalCarrito += Number( item.precio_compra );
     }
   }
@@ -99,6 +104,33 @@ export class CarritoService {
     }
   }
 
+  removerItem( idx: number){
+    this.items.splice(idx,1);
+  }
+
+  realizarPedido(){
+    let codigos: string[] = [];
+
+    for (const item of this.items) {
+      codigos.push( item.codigo );
+    }
+
+    const data = new HttpParams().append('items', codigos.join(','));
+
+    return this.http.post(`${ URL }/pedidos/realizar_orden/${ this.usuarioService.token }/${ this.usuarioService.idUsuario }`, data )
+                .subscribe( async resp => {
+                  this.items = [];
+                  await (await this.alertController.create({
+                    header: 'Orden realizada!',
+                    subHeader: 'Nos contactaremos con usted próximamente.',
+                    buttons: ['OK']
+                  })).present();
+                },
+                async dataError => {
+                  // Aquí hay un problema
+                  this.usuarioService.handleError(dataError, 'Error al realizar pedido');
+                });
+  }
 
   private guardarStorage() {
 

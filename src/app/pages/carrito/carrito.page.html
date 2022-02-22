@@ -21,14 +21,14 @@
     <div *ngIf="carritoService.items.length > 0">
 
         <ion-grid>
-            <ion-row *ngFor="let item of carritoService.items">
+            <ion-row *ngFor="let item of carritoService.items; let i = index;">
                 <ion-col>
                     <img [src]="item.codigo | imagen" alt="item.producto">
                 </ion-col>
                 <ion-col>
                     <p>{{ item.producto }}</p>
                     <p>{{ item.precio_compra | currency:'USD':'symbol-narrow' }}</p>
-                    <ion-button (click)="borrarItem()" color="danger" fill="outline" size="small">
+                    <ion-button (click)="carritoService.removerItem(i)" expand="block" color="danger" fill="outline" size="small">
                         Eliminar
                     </ion-button>
                 </ion-col>
@@ -46,7 +46,7 @@
             </ion-row>
         </ion-grid>
 
-        <ion-button (click)="realizarPedido()" expand="block">
+        <ion-button (click)="carritoService.realizarPedido()" expand="block">
             Realizar Pedido
         </ion-button>
 
