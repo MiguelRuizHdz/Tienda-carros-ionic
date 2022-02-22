@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AlertController, Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
-
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 const URL = environment.url;
 
 @Injectable({
@@ -22,11 +23,16 @@ export class UsuarioService {
     }
 
   activo(): boolean {
-    if(this.token ){
-      return true;
-    } else {
-      return false;
-    }
+    return this.token ? true : false;
+  }
+
+  async handleError(error: HttpErrorResponse, msg: string) {
+    // Aquí hay un problema
+    await (await this.alertController.create({
+      header: msg,
+      subHeader: error.error.mensaje,
+      buttons: ['OK']
+    })).present();
   }
 
   async ingresar( correo: string, contrasena: string ) {
@@ -37,15 +43,9 @@ export class UsuarioService {
 
       this.http.post( `${ URL }/login`, data )
                 .subscribe( async (dataResp: any) => {
-                  console.log(dataResp);
                   if( dataResp.error.error ) {
                     // Aquí hay un problema
-                    await (await this.alertController.create({
-                      header: 'Error al iniciar',
-                      subHeader: dataResp.mensaje,
-                      buttons: ['OK']
-                    })).present();
-
+                    this.handleError(dataResp, 'Error al iniciar sesión');
                     resolve(false);
                   } else {
                     this.token = dataResp.token;
@@ -54,6 +54,10 @@ export class UsuarioService {
                     this.guardarStorage();
                     resolve(true);
                   }
+                }, async dataError => {
+                  // Aquí hay un problema
+                  this.handleError(dataError, 'Error al iniciar sesión');
+                  resolve(false);
                 });
     });
   }

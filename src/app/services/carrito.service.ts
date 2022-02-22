@@ -18,7 +18,7 @@ export class CarritoService {
     public modalController: ModalController,
     private storage: Storage) {
       this.storage.create();
-    this.cargarStorage();
+      this.cargarStorage();
     }
 
   async agregarCarrito( itemParametro: any ) {
@@ -80,14 +80,13 @@ export class CarritoService {
 
     modal.present();
 
-    modal.onWillDismiss( async ( abrirCarrito: boolean ) => {
-      if( abrirCarrito ) {
-        modal = await this.modalController.create({
-          component: CarritoPage,
-        });
-        modal.present();
-      }
-    });
+    const { abrirCarrito } = await modal.onWillDismiss();
+    if ( abrirCarrito ) {
+      modal = await this.modalController.create({
+        component: CarritoPage,
+      });
+      modal.present();
+    }
   }
 
 

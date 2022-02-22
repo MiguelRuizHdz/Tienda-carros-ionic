@@ -19,18 +19,15 @@ export class LoginPage implements OnInit {
   }
 
   dismiss() {
-    this.modalController.dismiss({
-      dismissed: true
-    });
+    this.modalController.dismiss(false);
   }
 
   async ingresar() {
-    if( this.usuarioService.activo() ){
-      this.dismiss();
-    }
     const valido = await this.usuarioService.ingresar( this.correo, this.contrasena );
+    if( this.usuarioService.activo() ){
+      this.modalController.dismiss(true);
+    }
 
-    console.log(valido);
   }
 
 }
