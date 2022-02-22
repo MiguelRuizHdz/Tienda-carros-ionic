@@ -11,6 +11,7 @@ import { CarritoPage } from '../pages/carrito/carrito.page';
 export class CarritoService {
 
   items: any[] = [];
+  totalCarrito = 0;
 
   constructor(public alertController: AlertController,
     private platform: Platform,
@@ -19,6 +20,7 @@ export class CarritoService {
     private storage: Storage) {
       this.storage.create();
       this.cargarStorage();
+      this.actualizarTotal();
     }
 
   async agregarCarrito( itemParametro: any ) {
@@ -36,7 +38,15 @@ export class CarritoService {
     }
 
     this.items.push( itemParametro );
+    this.actualizarTotal();
     this.guardarStorage();
+  }
+
+  actualizarTotal() {
+    this.totalCarrito = 0;
+    for( let item of this.items ) {
+      this.totalCarrito += Number( item.precio_compra );
+    }
   }
 
   async cargarStorage(){

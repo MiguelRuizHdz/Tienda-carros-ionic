@@ -20,7 +20,7 @@ export class ProductoService {
     this.cargarCategorias();
   }
 
-  cargarPorCategoria( categoria:number ) {
+  cargarPorCategoria( categoria: number ) {
     return new Promise( (resolve, reject ) =>{
 
       this.http.get( `${ URL }/productos/por_tipo/${ categoria }` )
