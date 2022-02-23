@@ -1,23 +1,33 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>Orden {{ orden.id }}</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/tabs/ordenes"></ion-back-button>
+        </ion-buttons>
+        <ion-title *ngIf="orden">Orden {{ orden.id }}</ion-title>
+        <ion-title *ngIf="!orden">No existe orden</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-text-center">
 
-    <ion-list>
+    <ion-list *ngIf="orden">
 
         <ion-item *ngFor="let item of orden.detalle">
-            <img [src]="item.codigo | imagen" alt="item.producto">
-            <h5>{{ item.producto }}</h5>
-            <p>{{ item.descripcion }}</p>
-            <p>{{ item.precio_compra | currency:'USD':'symbol-narrow' }}</p>
+            <ion-label>
+                <img [src]="item.codigo | imagen" [alt]="item.producto">
+                <h5>{{ item.producto }}</h5>
+
+                <p>{{ item.descripcion }}</p>
+
+
+                <p>{{ item.precio_compra | currency:'USD':'symbol-narrow' }}</p>
+
+            </ion-label>
         </ion-item>
 
     </ion-list>
 
-    <ion-button (click)="borrarOrden()" color="danger" expand="block">
+    <ion-button *ngIf="orden" (click)="borrarOrden()" color="danger" expand="block">
         Borrar orden
     </ion-button>
 

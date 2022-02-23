@@ -7,7 +7,7 @@
 <ion-content>
 
     <ion-list>
-        <ion-item button="true" detail="true" *ngFor="let orden of carritoService.ordenes" [routerLink]="['ordenes-detalle', orden ]">
+        <ion-item button="true" detail="true" *ngFor="let orden of carritoService.ordenes" (click)="verDetalle( orden )">
             <ion-label><strong>Orden ID:</strong>{{ orden.id }}</ion-label>
         </ion-item>
     </ion-list>

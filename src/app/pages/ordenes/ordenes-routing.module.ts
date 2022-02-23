@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'ordenes-detalle',
-    loadChildren: () => import('./pages/ordenes-detalle/ordenes-detalle.module').then( m => m.OrdenesDetallePageModule)
+    loadChildren: () => import('../ordenes-detalle/ordenes-detalle.module').then( m => m.OrdenesDetallePageModule)
   }
 ];
 

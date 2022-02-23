@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
 import { CarritoService } from '../../services/carrito.service';
 
 @Component({
@@ -8,10 +9,21 @@ import { CarritoService } from '../../services/carrito.service';
 })
 export class OrdenesPage implements OnInit {
 
-  constructor(public carritoService: CarritoService) { }
+  constructor(public carritoService: CarritoService,
+    private router: Router) { }
 
   ngOnInit() {
     this.carritoService.cargarOrdenes();
+  }
+
+  verDetalle( orden: any ) {
+
+    const navigationExtras: NavigationExtras = {
+      queryParams: orden
+    };
+
+    this.router.navigate(['tabs/ordenes/ordenes-detalle'], navigationExtras);
+
   }
 
 }
