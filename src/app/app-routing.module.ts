@@ -18,10 +18,6 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
-  },
-  {
-    path: 'ordenes-detalle',
-    loadChildren: () => import('./pages/ordenes-detalle/ordenes-detalle.module').then( m => m.OrdenesDetallePageModule)
   }
 ];
 

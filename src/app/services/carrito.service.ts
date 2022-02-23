@@ -16,6 +16,7 @@ export class CarritoService {
 
   items: any[] = [];
   totalCarrito = 0;
+  ordenes: any[] = [];
 
   constructor(public alertController: AlertController,
     private platform: Platform,
@@ -130,6 +131,22 @@ export class CarritoService {
                   // Aquí hay un problema
                   this.usuarioService.handleError(dataError, 'Error al realizar pedido');
                 });
+  }
+
+  cargarOrdenes() {
+
+    const url = `${ URL }/pedidos/obtener_pedidos/${ this.usuarioService.token }/${ this.usuarioService.idUsuario }`
+    return this.http.get( url )
+                    .subscribe( (data: any) => {
+                      this.ordenes = data.ordenes;
+                    },
+                    async dataError => {
+                      // Aquí hay un problema
+                      this.usuarioService.handleError(dataError, 'Error al realizar pedido');
+                    });
+
+
+
   }
 
   private guardarStorage() {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-ordenes-detalle',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrdenesDetallePage implements OnInit {
 
-  constructor() { }
+  orden = {};
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.snapshot.paramMap.keys.forEach((key) => {
+      this.orden[key] = this.route.snapshot.paramMap.get(key);
+    });
+    console.log(this.orden);
   }
 
 }

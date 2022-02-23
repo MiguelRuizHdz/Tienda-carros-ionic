@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { OrdenesDetallePageRoutingModule } from './ordenes-detalle-routing.module';
 
 import { OrdenesDetallePage } from './ordenes-detalle.page';
+import { PipesModule } from '../../pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    OrdenesDetallePageRoutingModule
+    OrdenesDetallePageRoutingModule,
+    PipesModule
   ],
   declarations: [OrdenesDetallePage]
 })

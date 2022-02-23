@@ -1,9 +1,15 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>ordenes</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>Órdenes</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+    <ion-list>
+        <ion-item button="true" detail="true" *ngFor="let orden of carritoService.ordenes" [routerLink]="['ordenes-detalle', orden ]">
+            <ion-label><strong>Orden ID:</strong>{{ orden.id }}</ion-label>
+        </ion-item>
+    </ion-list>
 
 </ion-content>
