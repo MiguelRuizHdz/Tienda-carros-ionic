@@ -126,6 +126,7 @@ export class CarritoService {
                     subHeader: 'Nos contactaremos con usted próximamente.',
                     buttons: ['OK']
                   })).present();
+                  this.guardarStorage();
                 },
                 async dataError => {
                   // Aquí hay un problema
