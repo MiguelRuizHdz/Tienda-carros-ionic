@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Buscar productos</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <!-- Searchbar with a placeholder -->
+    <ion-searchbar enterkeyhint="send" (ionInput)="buscarProductos( $event )" ionInput placeholder="Buscar productos"></ion-searchbar>
+
+    <ion-list>
+
+        <ion-item *ngFor="let item of productoService.resultados" [routerLink]="['producto', item ]">
+            <ion-label>{{ item.producto }}</ion-label>
+        </ion-item>
+
+    </ion-list>
+
+</ion-content>

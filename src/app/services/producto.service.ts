@@ -14,6 +14,8 @@ export class ProductoService {
   categorias: any[] = [];
   porCategoria: any[] = [];
 
+  resultados: any[] = [];
+
 
   constructor(private http: HttpClient) {
     this.cargarTodos();
@@ -73,6 +75,15 @@ export class ProductoService {
                             resolve(true);
                           });
     });
+  }
+
+  buscarProducto( termino: string ) {
+
+    return this.http.get(`${ URL }/productos/buscar/${ termino }`)
+                          .subscribe( (resp: any ) => {
+                            this.resultados = resp.productos;
+                          });
+
   }
 
 

@@ -21,6 +21,10 @@ const routes: Routes = [
         loadChildren: () => import('../ordenes/ordenes.module').then( m => m.OrdenesPageModule)
       },
       {
+        path: 'busqueda',
+        loadChildren: () => import('../busqueda/busqueda.module').then( m => m.BusquedaPageModule)
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full'
