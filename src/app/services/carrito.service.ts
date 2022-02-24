@@ -6,6 +6,7 @@ import { LoginPage } from '../pages/login/login.page';
 import { CarritoPage } from '../pages/carrito/carrito.page';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.prod';
+import { UiServiceService } from './ui-service.service';
 
 const URL = environment.url;
 
@@ -21,6 +22,7 @@ export class CarritoService {
   constructor(public alertController: AlertController,
     private platform: Platform,
     private http: HttpClient,
+    private uiService: UiServiceService,
     private usuarioService: UsuarioService,
     public modalController: ModalController,
     private storage: Storage) {
@@ -46,6 +48,7 @@ export class CarritoService {
     this.items.push( itemParametro );
     this.actualizarTotal();
     this.guardarStorage();
+    this.uiService.presentToast('Se ha agregado al carrito correctamente.');
   }
 
   actualizarTotal() {
@@ -109,6 +112,7 @@ export class CarritoService {
     this.items.splice(idx,1);
     this.actualizarTotal();
     this.guardarStorage();
+    this.uiService.presentToast('Se ha eliminado del carrito satisfactoriamente.');
   }
 
   realizarPedido(){

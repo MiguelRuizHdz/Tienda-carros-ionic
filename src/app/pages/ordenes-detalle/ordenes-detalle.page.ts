@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CarritoService } from 'src/app/services/carrito.service';
 import { NavController } from '@ionic/angular';
+import { UiServiceService } from 'src/app/services/ui-service.service';
 
 @Component({
   selector: 'app-ordenes-detalle',
@@ -13,6 +14,7 @@ export class OrdenesDetallePage implements OnInit {
   orden = {};
 
   constructor(private router: Router,
+    private uiService: UiServiceService,
     private carritoService: CarritoService,
     private navCtrl: NavController) {}
 
@@ -27,6 +29,8 @@ export class OrdenesDetallePage implements OnInit {
                             // Manejo de errores
                           } else {
                             this.navCtrl.pop();
+                            this.uiService.presentToast('Se ha eliminado la orden correctamente.');
+
                           }
                         });
   }
