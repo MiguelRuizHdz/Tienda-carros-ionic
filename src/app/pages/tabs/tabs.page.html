@@ -8,7 +8,7 @@
             <ion-icon name="apps"></ion-icon>
             <ion-label>Categorías</ion-label>
         </ion-tab-button>
-        <ion-tab-button tab="ordenes">
+        <ion-tab-button *ngIf="this.usuarioService.token" tab="ordenes">
             <ion-icon name="list"></ion-icon>
             <ion-label>Ordenes</ion-label>
         </ion-tab-button>
