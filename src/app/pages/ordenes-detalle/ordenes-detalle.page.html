@@ -27,7 +27,7 @@
 
     </ion-list>
 
-    <ion-button *ngIf="orden" (click)="borrarOrden()" color="danger" expand="block">
+    <ion-button *ngIf="orden" (click)="borrarOrden( orden.id )" color="danger" expand="block">
         Borrar orden
     </ion-button>
 

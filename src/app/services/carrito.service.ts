@@ -135,18 +135,22 @@ export class CarritoService {
 
   cargarOrdenes() {
 
-    const url = `${ URL }/pedidos/obtener_pedidos/${ this.usuarioService.token }/${ this.usuarioService.idUsuario }`
+    console.log('Entramos');
+    const url = `${ URL }/pedidos/obtener_pedidos/${ this.usuarioService.token }/${ this.usuarioService.idUsuario }`;
     return this.http.get( url )
                     .subscribe( (data: any) => {
                       this.ordenes = data.ordenes;
                     },
                     async dataError => {
                       // Aquí hay un problema
-                      this.usuarioService.handleError(dataError, 'Error al realizar pedido');
+                      this.usuarioService.handleError(dataError, 'Error al cargarOrdenes');
                     });
 
+  }
 
-
+  borrarOrden( ordenId: string ) {
+    const url = `${ URL }/pedidos/borrar_pedido/${ this.usuarioService.token }/${ this.usuarioService.idUsuario }/${ ordenId }`;
+    return this.http.delete( url );
   }
 
   private guardarStorage() {

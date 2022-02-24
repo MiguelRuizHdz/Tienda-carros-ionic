@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,  } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CarritoService } from '../../services/carrito.service';
 
@@ -7,12 +7,12 @@ import { CarritoService } from '../../services/carrito.service';
   templateUrl: './ordenes.page.html',
   styleUrls: ['./ordenes.page.scss'],
 })
-export class OrdenesPage implements OnInit {
+export class OrdenesPage {
 
   constructor(public carritoService: CarritoService,
     private router: Router) { }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.carritoService.cargarOrdenes();
   }
 
