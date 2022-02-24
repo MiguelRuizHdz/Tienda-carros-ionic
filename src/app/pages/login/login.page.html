@@ -24,8 +24,6 @@
         </ion-item>
     </ion-list>
 
-    {{ correo }} {{ contrasena }}
-
     <ion-button (click)="ingresar()" [disabled]="correo.length < 5 || contrasena.length < 5" expand="block">
         Ingresar
     </ion-button>

@@ -18,9 +18,7 @@ export class PorCategoriasPage implements OnInit {
     this.route.snapshot.paramMap.keys.forEach((key) => {
       this.categoria[key] = this.route.snapshot.paramMap.get(key);
     });
-    console.log(this.categoria);
     this.productoService.cargarPorCategoria( this.categoria.id );
-
   }
 
 }

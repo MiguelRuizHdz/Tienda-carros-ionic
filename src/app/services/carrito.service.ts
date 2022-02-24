@@ -142,7 +142,6 @@ export class CarritoService {
 
   cargarOrdenes() {
 
-    console.log('Entramos');
     const url = `${ URL }/pedidos/obtener_pedidos/${ this.usuarioService.token }/${ this.usuarioService.idUsuario }`;
     return this.http.get( url )
                     .subscribe( (data: any) => {

@@ -27,7 +27,6 @@ export class ProductoService {
 
       this.http.get( `${ URL }/productos/por_tipo/${ categoria }` )
                           .subscribe( (data: any) => {
-                            console.log(data);
                             if( data.error ) {
                               // Aquí hay un problema
                               resolve(false);
@@ -45,7 +44,6 @@ export class ProductoService {
 
       this.http.get( `${ URL }/productos/todos/${ this.pagina }` )
                           .subscribe( (data: any) => {
-                            console.log(data);
                             if( data.error ) {
                               // Aquí hay un problema
                               resolve(false);
@@ -64,13 +62,11 @@ export class ProductoService {
 
       this.http.get( `${ URL }/lineas` )
                           .subscribe( (data: any) => {
-                            console.log(data);
                             if( data.error ) {
                               // Aquí hay un problema
                               resolve(false);
                             } else {
                               this.categorias = data.lineas;
-                              console.log(this.categorias);
                             }
                             resolve(true);
                           });

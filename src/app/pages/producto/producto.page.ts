@@ -29,7 +29,6 @@ export class ProductoPage implements OnInit {
     this.route.snapshot.paramMap.keys.forEach((key) => {
       this.producto[key] = this.route.snapshot.paramMap.get(key);
     });
-    console.log(this.producto);
   }
 
 }
