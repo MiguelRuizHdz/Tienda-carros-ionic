@@ -9,7 +9,7 @@
 
 <ion-content class="ion-padding">
 
-    <ion-list>
+    <ion-list *ngIf="productoService.porCategoria.length > 0">
         <ion-item *ngFor="let item of productoService.porCategoria">
             <ion-thumbnail slot="start">
                 <img [src]="item.codigo | imagen" alt="item.producto" />
