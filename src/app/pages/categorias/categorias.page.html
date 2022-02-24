@@ -6,7 +6,7 @@
 
 <ion-content>
 
-    <ion-list>
+    <ion-list *ngIf="productoService.categorias.length > 0">
         <ion-item button [routerLink]="['por-categorias', categoria ]" *ngFor="let categoria of productoService.categorias" detail>
             <ion-label>{{ categoria.linea }}</ion-label>
             <ion-icon slot="start" [name]="categoria.icono"></ion-icon>

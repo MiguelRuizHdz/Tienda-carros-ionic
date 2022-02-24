@@ -6,10 +6,15 @@
 
 <ion-content>
 
-    <ion-list>
+    <ion-list *ngIf="carritoService.ordenes.length > 0">
         <ion-item button="true" detail="true" *ngFor="let orden of carritoService.ordenes" (click)="verDetalle( orden )">
             <ion-label><strong>Orden ID:</strong>{{ orden.id }}</ion-label>
         </ion-item>
     </ion-list>
+
+    <div *ngIf="carritoService.ordenes.length === 0" class="ion-text-center carritoVacio">
+        <ion-icon class="icon-5x" slot="start" name="cart-outline"></ion-icon>
+        <br/> No tiene órdenes
+    </div>
 
 </ion-content>

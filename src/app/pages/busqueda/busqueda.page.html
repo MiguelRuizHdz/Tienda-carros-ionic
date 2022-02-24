@@ -9,7 +9,7 @@
     <!-- Searchbar with a placeholder -->
     <ion-searchbar enterkeyhint="send" (ionInput)="buscarProductos( $event )" ionInput placeholder="Buscar productos"></ion-searchbar>
 
-    <ion-list>
+    <ion-list *ngIf="productoService.resultados.length > 0">
 
         <ion-item *ngFor="let item of productoService.resultados" [routerLink]="['producto', item ]">
             <ion-label>{{ item.producto }}</ion-label>
