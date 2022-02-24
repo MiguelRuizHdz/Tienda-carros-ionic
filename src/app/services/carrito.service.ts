@@ -107,6 +107,8 @@ export class CarritoService {
 
   removerItem( idx: number){
     this.items.splice(idx,1);
+    this.actualizarTotal();
+    this.guardarStorage();
   }
 
   realizarPedido(){
