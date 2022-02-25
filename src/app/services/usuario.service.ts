@@ -19,6 +19,7 @@ export class UsuarioService {
     private platform: Platform,
     private storage: Storage,
     public alertController: AlertController) {
+      this.storage.create();
       this.cargarStorage();
     }
 
@@ -80,14 +81,13 @@ export class UsuarioService {
           if (token) {
             this.token = token;
           }
-          resolve(true);
         });
         await this.storage.get('idUsuario').then( idUsuario => {
           if (idUsuario) {
             this.idUsuario = idUsuario;
           }
-          resolve(true);
         });
+        resolve(true);
       } else {
         // computadora
         if ( localStorage.getItem('token') ) {

@@ -26,7 +26,6 @@ export class CarritoService {
     private usuarioService: UsuarioService,
     public modalController: ModalController,
     private storage: Storage) {
-      this.storage.create();
       this.cargarStorage();
       this.actualizarTotal();
     }
