@@ -6,8 +6,7 @@
 
 <ion-content>
 
-    <!-- Searchbar with a placeholder -->
-    <ion-searchbar enterkeyhint="send" (ionInput)="buscarProductos( $event )" ionInput placeholder="Buscar productos"></ion-searchbar>
+    <ion-searchbar enterkeyhint="search" (ionInput)="buscarProductos( $event )" ionInput placeholder="Buscar productos"></ion-searchbar>
 
     <ion-list *ngIf="productoService.resultados.length > 0">
 
